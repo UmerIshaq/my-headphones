@@ -1,8 +1,11 @@
 // import React from "react";
 import { MdMenu } from "react-icons/md";
+import { ImCross } from "react-icons/im";
 import { SlEarphones } from "react-icons/sl";
 import { UpdateFollower } from "react-mouse-follower";
 import { motion } from "framer-motion";
+import MobileNav from "../MobileNav/MobileNav";
+import { useState } from "react";
 const NavbarMenu = [
   {
     id: 1,
@@ -31,7 +34,14 @@ const NavbarMenu = [
   },
 ];
 
+// const NavData = () => {
+//   NavbarMenu.map((item) => {
+//     item;
+//   });
+// };
 const Navbar = () => {
+  const [State, setState] = useState(false);
+
   return (
     <>
       <div className="bg-brandDark text-white py-8 font-varela ">
@@ -87,10 +97,18 @@ const Navbar = () => {
             </ul>
           </div>
           {/* Mobile Hamburger Section  */}
-          <div className="md:hidden">
-            <MdMenu className="text-4xl" />
-          </div>
+          {State == false ? (
+            <div className="md:hidden">
+              <MdMenu onClick={() => setState(true)} className="text-4xl" />
+            </div>
+          ) : (
+            <div className="md:hidden">
+              <ImCross onClick={() => setState(false)} className="text-2xl" />
+            </div>
+          )}
+          {/* Mobile Navbar  */}
         </motion.nav>
+        {!State == false ? <MobileNav State={State} /> : null}
       </div>
     </>
   );
